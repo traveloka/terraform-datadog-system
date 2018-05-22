@@ -1,0 +1,169 @@
+variable "product_domain" {
+  type        = "string"
+  description = "The name of the product domain"
+}
+
+variable "service" {
+  type        = "string"
+  description = "The name of the service"
+}
+
+variable "cluster" {
+  type        = "string"
+  description = "The name of the cluster"
+}
+
+variable "cpu_usage_thresholds" {
+  type = "map"
+
+  default = {
+    critical = 70
+    warning  = 50
+  }
+
+  description = "The warning and critical thresholds for CPU Usage Monitoring"
+}
+
+variable "cpu_usage_message" {
+  type        = "string"
+  default     = ""
+  description = "The message when CPU Usage Monitor triggered"
+}
+
+variable "cpu_usage_escalation_message" {
+  type        = "string"
+  default     = ""
+  description = "The escalation message when CPU Usage Monitor isn't resolved for given time"
+}
+
+variable "disk_usage_thresholds" {
+  type = "map"
+
+  default = {
+    critical = 70
+    warning  = 50
+  }
+
+  description = "The warning and critical thresholds for Disk Usage Monitoring"
+}
+
+variable "disk_usage_message" {
+  type        = "string"
+  default     = ""
+  description = "The message when Disk Usage Monitor triggered"
+}
+
+variable "disk_usage_escalation_message" {
+  type        = "string"
+  default     = ""
+  description = "The escalation message when Disk Usage Monitor isn't resolved for given time"
+}
+
+variable "memory_free_thresholds" {
+  type        = "map"
+  description = "The warning and critical thresholds for Free Memory Monitoring"
+}
+
+variable "memory_free_message" {
+  type        = "string"
+  default     = ""
+  description = "The message when Free Memory Monitor triggered"
+}
+
+variable "memory_free_escalation_message" {
+  type        = "string"
+  default     = ""
+  description = "The escalation message when Free Memory Monitor isn't resolved for given time"
+}
+
+variable "network_in_thresholds" {
+  type        = "map"
+  description = "The warning and critical thresholds for Network In Monitoring"
+}
+
+variable "network_in_message" {
+  type        = "string"
+  default     = ""
+  description = "The message when Network In Monitor triggered"
+}
+
+variable "network_in_escalation_message" {
+  type        = "string"
+  default     = ""
+  description = "The escalation message when Network In Monitor isn't resolved for given time"
+}
+
+variable "network_out_thresholds" {
+  type        = "map"
+  description = "The warning and critical thresholds for Network Out Monitoring"
+}
+
+variable "network_out_message" {
+  type        = "string"
+  default     = ""
+  description = "The message when Network Out Monitor triggered"
+}
+
+variable "network_out_escalation_message" {
+  type        = "string"
+  default     = ""
+  description = "The escalation message when Network Out Monitor isn't resolved for given time"
+}
+
+variable "open_file_thresholds" {
+  type        = "map"
+  description = "The warning and critical thresholds for Open File Monitoring"
+}
+
+variable "open_file_message" {
+  type        = "string"
+  default     = ""
+  description = "The message when Open File Monitor triggered"
+}
+
+variable "open_file_escalation_message" {
+  type        = "string"
+  default     = ""
+  description = "The escalation message when Open File Monitor isn't resolved for given time"
+}
+
+variable "system_load_thresholds" {
+  type        = "map"
+  description = "The warning and critical thresholds for System Load Monitoring"
+}
+
+variable "system_load_message" {
+  type        = "string"
+  default     = ""
+  description = "The message when System Load Monitor triggered"
+}
+
+variable "system_load_escalation_message" {
+  type        = "string"
+  default     = ""
+  description = "The escalation message when System Load Monitor isn't resolved for given time"
+}
+
+variable "recipients" {
+  type        = "list"
+  default     = []
+  description = "Notification recipients when monitor triggered"
+}
+
+variable "renotify_interval" {
+  type        = "string"
+  default     = "0"
+  description = "Time interval in minutes which escalation_message will be sent when monitor is triggered"
+}
+
+variable "notify_audit" {
+  type        = "string"
+  default     = false
+  description = "Whether any configuration changes should be notified"
+}
+
+variable "enabled" {
+  type        = "string"
+  default     = true
+  description = "To enable this module"
+}
