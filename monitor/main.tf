@@ -18,7 +18,7 @@ module "cpu_usage" {
 }
 
 module "disk_usage" {
-  source  = "github.com/traveloka/terraform-datadog-monitor?"
+  source  = "github.com/traveloka/terraform-datadog-monitor"
   enabled = "${var.enabled}"
 
   product_domain = "${var.product_domain}"

@@ -7,8 +7,8 @@ Terraform module for Datadog Monitor System.
 
 Usage
 -----
-* [Simple Example](https://github.com/traveloka/terraform-datadog-monitor-system/tree/master/examples/simple)
-* [Complete Example](https://github.com/traveloka/terraform-datadog-monitor-system/tree/master/examples/complete)
+* [Simple Example](https://github.com/traveloka/terraform-datadog-system/tree/master/monitor/examples/simple)
+* [Complete Example](https://github.com/traveloka/terraform-datadog-system/tree/master/monitor/examples/complete)
 
 Terraform Version
 -----------------
