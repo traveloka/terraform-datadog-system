@@ -1,20 +1,11 @@
-module "beical_app_monitor_system" {
+module "system" {
   source         = "../../"
   product_domain = "BEI"
   service        = "beical"
-  cluster        = "beical-app"
+  cluster        = "entcurr-app"
+  environment    = "production"
 
   recipients = ["slack-bei", "pagerduty-bei", "bei@traveloka.com"]
-
-  cpu_usage_thresholds = {
-    critical = 70
-    warning  = 50
-  }
-
-  disk_usage_thresholds = {
-    critical = 70
-    warning  = 60
-  }
 
   memory_free_thresholds = {
     critical = 1000000000
