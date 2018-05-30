@@ -1,11 +1,12 @@
-module "beical_app_monitor_system" {
+module "system" {
   source         = "../../"
   product_domain = "BEI"
   service        = "beical"
-  cluster        = "beical-app"
+  cluster        = "entcurr-app"
+  environment    = "production"
 
   recipients        = ["slack-bei", "pagerduty-bei", "bei@traveloka.com"]
-  renotify_interval = 60
+  renotify_interval = 0
   notify_audit      = false
 
   cpu_usage_thresholds = {

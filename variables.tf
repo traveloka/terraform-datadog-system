@@ -1,3 +1,9 @@
+variable "enabled" {
+  type        = "string"
+  default     = true
+  description = "To enable this module"
+}
+
 variable "product_domain" {
   type        = "string"
   description = "The name of the product domain"
@@ -11,6 +17,30 @@ variable "service" {
 variable "cluster" {
   type        = "string"
   description = "The name of the cluster"
+}
+
+variable "environment" {
+  type        = "string"
+  default     = "*"
+  description = "The name of the environment"
+}
+
+variable "recipients" {
+  type        = "list"
+  default     = []
+  description = "Notification recipients when monitor triggered"
+}
+
+variable "renotify_interval" {
+  type        = "string"
+  default     = "0"
+  description = "Time interval in minutes which escalation_message will be sent when monitor is triggered"
+}
+
+variable "notify_audit" {
+  type        = "string"
+  default     = false
+  description = "Whether any configuration changes should be notified"
 }
 
 variable "cpu_usage_thresholds" {
@@ -60,7 +90,12 @@ variable "disk_usage_escalation_message" {
 }
 
 variable "memory_free_thresholds" {
-  type        = "map"
+  type = "map"
+
+  default = {
+    critical = "No default value"
+  }
+
   description = "The warning and critical thresholds for Free Memory Monitoring"
 }
 
@@ -77,7 +112,12 @@ variable "memory_free_escalation_message" {
 }
 
 variable "network_in_thresholds" {
-  type        = "map"
+  type = "map"
+
+  default = {
+    critical = "No default value"
+  }
+
   description = "The warning and critical thresholds for Network In Monitoring"
 }
 
@@ -94,7 +134,12 @@ variable "network_in_escalation_message" {
 }
 
 variable "network_out_thresholds" {
-  type        = "map"
+  type = "map"
+
+  default = {
+    critical = "No default value"
+  }
+
   description = "The warning and critical thresholds for Network Out Monitoring"
 }
 
@@ -111,7 +156,12 @@ variable "network_out_escalation_message" {
 }
 
 variable "open_file_thresholds" {
-  type        = "map"
+  type = "map"
+
+  default = {
+    critical = "No default value"
+  }
+
   description = "The warning and critical thresholds for Open File Monitoring"
 }
 
@@ -128,7 +178,12 @@ variable "open_file_escalation_message" {
 }
 
 variable "system_load_thresholds" {
-  type        = "map"
+  type = "map"
+
+  default = {
+    critical = "No default value"
+  }
+
   description = "The warning and critical thresholds for System Load Monitoring"
 }
 
@@ -142,28 +197,4 @@ variable "system_load_escalation_message" {
   type        = "string"
   default     = ""
   description = "The escalation message when System Load Monitor isn't resolved for given time"
-}
-
-variable "recipients" {
-  type        = "list"
-  default     = []
-  description = "Notification recipients when monitor triggered"
-}
-
-variable "renotify_interval" {
-  type        = "string"
-  default     = "0"
-  description = "Time interval in minutes which escalation_message will be sent when monitor is triggered"
-}
-
-variable "notify_audit" {
-  type        = "string"
-  default     = false
-  description = "Whether any configuration changes should be notified"
-}
-
-variable "enabled" {
-  type        = "string"
-  default     = true
-  description = "To enable this module"
 }
