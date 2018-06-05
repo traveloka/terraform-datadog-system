@@ -2,7 +2,7 @@ module "system" {
   source         = "../../"
   product_domain = "BEI"
   service        = "beical"
-  cluster        = "entcurr-app"
+  cluster        = "beical-app"
   environment    = "production"
   tags           = ["tag1", "tag2"]
 
