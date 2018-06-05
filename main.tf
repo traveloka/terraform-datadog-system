@@ -346,6 +346,8 @@ module "monitor_cpu_usage" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - CPU Usage is High on IP: {{ host.ip }} Name: {{ host.name }}"
   query              = "avg(last_5m):100 - avg:system.cpu.idle{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.cpu_usage_thresholds["critical"]}"
@@ -353,7 +355,9 @@ module "monitor_cpu_usage" {
   message            = "${var.cpu_usage_message}"
   escalation_message = "${var.cpu_usage_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
@@ -366,6 +370,8 @@ module "monitor_disk_usage" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Disk Usage is High on IP: {{ host.ip }} Name: {{ host.name }}"
   query              = "avg(last_5m):avg:system.disk.in_use{cluster:${var.cluster}, environment:${var.environment}} by {host,device} * 100  >= ${var.disk_usage_thresholds["critical"]}"
@@ -373,7 +379,9 @@ module "monitor_disk_usage" {
   message            = "${var.disk_usage_message}"
   escalation_message = "${var.disk_usage_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
@@ -386,6 +394,8 @@ module "monitor_memory_free" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Free Memory is Low on IP: {{ host.ip }} Name: {{ host.name }}"
   query              = "avg(last_5m):avg:system.mem.free{cluster:${var.cluster}, environment:${var.environment}} by {host} <= ${var.memory_free_thresholds["critical"]}"
@@ -393,7 +403,9 @@ module "monitor_memory_free" {
   message            = "${var.memory_free_message}"
   escalation_message = "${var.memory_free_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
@@ -406,6 +418,8 @@ module "monitor_network_in" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Network In is High on IP: {{ host.ip }} Name: {{ host.name }}"
   query              = "avg(last_5m):avg:system.net.bytes_rcvd{cluster:${var.cluster}, environment:${var.environment}} by {host,device} >= ${var.network_in_thresholds["critical"]}"
@@ -413,7 +427,9 @@ module "monitor_network_in" {
   message            = "${var.network_in_message}"
   escalation_message = "${var.network_in_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
@@ -426,6 +442,8 @@ module "monitor_network_out" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Network Out is High on IP: {{ host.ip }} Name: {{ host.name }}"
   query              = "avg(last_5m):avg:system.net.bytes_sent{cluster:${var.cluster}, environment:${var.environment}} by {host,device} >= ${var.network_out_thresholds["critical"]}"
@@ -433,7 +451,9 @@ module "monitor_network_out" {
   message            = "${var.network_out_message}"
   escalation_message = "${var.network_out_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
@@ -446,6 +466,8 @@ module "monitor_open_file" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Open File is High on IP: {{ host.ip }} Name: {{ host.name }}"
   query              = "avg(last_5m):custom.system.fs.allocated_fh{cluster:${var.cluster}, environment:${var.environment}} by {host} - avg:custom.system.fs.allocated_unused_fh{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.open_file_thresholds["critical"]}"
@@ -453,7 +475,9 @@ module "monitor_open_file" {
   message            = "${var.open_file_message}"
   escalation_message = "${var.open_file_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
@@ -466,6 +490,8 @@ module "monitor_system_load" {
   product_domain = "${var.product_domain}"
   service        = "${var.service}"
   environment    = "${var.environment}"
+  tags           = "${var.tags}"
+  timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - System Load is High on IP: {{ host.ip }} Name: {{ host.name }}"
   query              = "avg(last_5m):avg:system.load.1{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.system_load_thresholds["critical"]}"
@@ -473,7 +499,9 @@ module "monitor_system_load" {
   message            = "${var.system_load_message}"
   escalation_message = "${var.system_load_escalation_message}"
 
-  recipients = "${var.recipients}"
+  recipients         = "${var.recipients}"
+  alert_recipients   = "${var.alert_recipients}"
+  warning_recipients = "${var.warning_recipients}"
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
