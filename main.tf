@@ -109,7 +109,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:custom.system.fs.max_fh{$cluster, $environment} by {host}"
+      q          = "avg:system.fs.file_handles.max{$cluster, $environment} by {host}"
       aggregator = "avg"
       type       = "line"
     }
@@ -121,7 +121,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:custom.system.fs.allocated_fh{$cluster, $environment} by {host} - avg:custom.system.fs.allocated_unused_fh{$cluster, $environment} by {host}"
+      q          = "avg:system.fs.file_handles.allocated{$cluster, $environment} by {host} - avg:system.fs.file_handles.allocated_unused{$cluster, $environment} by {host}"
       aggregator = "avg"
       type       = "line"
     }
@@ -470,7 +470,7 @@ module "monitor_open_file" {
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Open File is High on IP: {{ host.ip }} Name: {{ host.name }}"
-  query              = "avg(last_5m):custom.system.fs.allocated_fh{cluster:${var.cluster}, environment:${var.environment}} by {host} - avg:custom.system.fs.allocated_unused_fh{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.open_file_thresholds["critical"]}"
+  query              = "avg(last_5m):system.fs.file_handles.allocated{cluster:${var.cluster}, environment:${var.environment}} by {host} - avg:system.fs.file_handles.allocated_unused{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.open_file_thresholds["critical"]}"
   thresholds         = "${var.open_file_thresholds}"
   message            = "${var.open_file_message}"
   escalation_message = "${var.open_file_escalation_message}"
