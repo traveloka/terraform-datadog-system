@@ -20,6 +20,12 @@ resource "datadog_timeboard" "system" {
     prefix  = "environment"
   }
 
+  template_variable {
+    default = "${var.disk_device}"
+    name    = "disk_device"
+    prefix  = "device"
+  }
+
   graph {
     title     = "CPU Utilization (Rollup: max)"
     viz       = "timeseries"
@@ -62,7 +68,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q    = "avg:system.disk.free{$cluster, $environment} by {host,device}"
+      q    = "avg:system.disk.free{$cluster, $environment, $disk_device} by {host,device}"
       type = "line"
     }
   }
@@ -73,7 +79,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:system.disk.in_use{$cluster, $environment} by {host,device} * 100"
+      q          = "avg:system.disk.in_use{$cluster, $environment, $disk_device} by {host,device} * 100"
       aggregator = "avg"
       type       = "line"
     }
@@ -85,7 +91,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:system.fs.inodes.in_use{$cluster, $environment} by {host,device} * 100"
+      q          = "avg:system.fs.inodes.in_use{$cluster, $environment, $disk_device} by {host,device} * 100"
       aggregator = "avg"
       type       = "line"
     }
@@ -374,7 +380,7 @@ module "monitor_disk_usage" {
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Disk Usage is High on IP: {{ host.ip }} Name: {{ host.name }}"
-  query              = "avg(last_5m):avg:system.disk.in_use{cluster:${var.cluster}, environment:${var.environment}} by {host,device} * 100  >= ${var.disk_usage_thresholds["critical"]}"
+  query              = "avg(last_5m):avg:system.disk.in_use{cluster:${var.cluster}, environment:${var.environment}, device:${var.disk_device}} by {host,device} * 100  >= ${var.disk_usage_thresholds["critical"]}"
   thresholds         = "${var.disk_usage_thresholds}"
   message            = "${var.disk_usage_message}"
   escalation_message = "${var.disk_usage_escalation_message}"
