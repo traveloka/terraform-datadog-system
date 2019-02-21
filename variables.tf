@@ -84,6 +84,12 @@ variable "cpu_usage_escalation_message" {
   description = "The escalation message when CPU Usage Monitor isn't resolved for given time"
 }
 
+variable "disk_device" {
+  type        = "string"
+  default     = "/dev/xvda1"
+  description = "The disk device that will be monitored"
+}
+
 variable "disk_usage_thresholds" {
   type = "map"
 
