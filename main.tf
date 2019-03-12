@@ -274,7 +274,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:system.net.bytes_rcvd{device:eth0,$cluster, $environment} by {host}.rollup(max)"
+      q          = "avg:system.net.bytes_rcvd{$cluster, $environment} by {host,device}.rollup(max)"
       aggregator = "avg"
       type       = "line"
     }
@@ -286,7 +286,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:system.net.bytes_sent{device:eth0,$cluster, $environment} by {host}.rollup(max)"
+      q          = "avg:system.net.bytes_sent{$cluster, $environment} by {host,device}.rollup(max)"
       aggregator = "avg"
       type       = "line"
     }
@@ -298,7 +298,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q    = "avg:system.net.packets_in.count{device:eth0,$cluster, $environment} by {host}.rollup(max)"
+      q    = "avg:system.net.packets_in.count{$cluster, $environment} by {host,device}.rollup(max)"
       type = "line"
     }
   }
@@ -309,7 +309,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:system.net.packets_out.count{device:eth0,$cluster, $environment} by {host}.rollup(max)"
+      q          = "avg:system.net.packets_out.count{$cluster, $environment} by {host,device}.rollup(max)"
       aggregator = "avg"
       type       = "line"
     }
@@ -321,7 +321,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q    = "avg:system.net.packets_in.error{device:eth0,$cluster, $environment} by {host}.rollup(max)"
+      q    = "avg:system.net.packets_in.error{$cluster, $environment} by {host,device}.rollup(max)"
       type = "line"
     }
   }
@@ -332,7 +332,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:system.net.packets_out.error{device:eth0,$cluster, $environment} by {host}.rollup(max)"
+      q          = "avg:system.net.packets_out.error{$cluster, $environment} by {host,device}.rollup(max)"
       aggregator = "avg"
       type       = "line"
     }
