@@ -56,7 +56,7 @@ resource "datadog_timeboard" "system" {
     autoscale = true
 
     request {
-      q          = "avg:system.mem.free{$cluster, $environment} by {host}"
+      q          = "avg:system.mem.usable{$cluster, $environment} by {host}"
       aggregator = "avg"
       type       = "line"
     }
@@ -404,7 +404,7 @@ module "monitor_memory_free" {
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
   name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Free Memory is Low on IP: {{ host.ip }} Name: {{ host.name }}"
-  query              = "avg(last_5m):avg:system.mem.free{cluster:${var.cluster}, environment:${var.environment}} by {host} <= ${var.memory_free_thresholds["critical"]}"
+  query              = "avg(last_5m):avg:system.mem.usable{cluster:${var.cluster}, environment:${var.environment}} by {host} <= ${var.memory_free_thresholds["critical"]}"
   thresholds         = "${var.memory_free_thresholds}"
   message            = "${var.memory_free_message}"
   escalation_message = "${var.memory_free_escalation_message}"
