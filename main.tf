@@ -8,7 +8,7 @@ resource "datadog_timeboard" "system" {
   title       = "${var.product_domain} - ${var.cluster} - ${var.environment} - System"
   description = "A generated timeboard for System"
 
-  template_variable = {
+  template_variable {
     default = "${var.cluster}"
     prefix  = "cluster"
     name    = "cluster"
