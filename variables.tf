@@ -61,6 +61,12 @@ variable "notify_audit" {
   description = "Whether any configuration changes should be notified"
 }
 
+variable "cpu_usage_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for CPU Usage Monitor, else use default"
+}
+
 variable "cpu_usage_thresholds" {
   type = "map"
 
@@ -84,10 +90,22 @@ variable "cpu_usage_escalation_message" {
   description = "The escalation message when CPU Usage Monitor isn't resolved for given time"
 }
 
+variable "cpu_usage_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for CPU Usage Monitor"
+}
+
 variable "disk_device" {
   type        = "string"
   default     = "/dev/xvda1"
   description = "The disk device that will be monitored"
+}
+
+variable "disk_usage_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for Disk Usage Monitor, else use default"
 }
 
 variable "disk_usage_thresholds" {
@@ -113,6 +131,18 @@ variable "disk_usage_escalation_message" {
   description = "The escalation message when Disk Usage Monitor isn't resolved for given time"
 }
 
+variable "disk_usage_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for Disk Usage Monitor"
+}
+
+variable "memory_free_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for Free Memory Monitor, else use default"
+}
+
 variable "memory_free_thresholds" {
   type = "map"
 
@@ -133,6 +163,18 @@ variable "memory_free_escalation_message" {
   type        = "string"
   default     = ""
   description = "The escalation message when Free Memory Monitor isn't resolved for given time"
+}
+
+variable "memory_free_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for Free Memory Monitor"
+}
+
+variable "network_in_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for Network In Monitor, else use default"
 }
 
 variable "network_in_thresholds" {
@@ -157,6 +199,18 @@ variable "network_in_escalation_message" {
   description = "The escalation message when Network In Monitor isn't resolved for given time"
 }
 
+variable "network_in_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for Network In Monitor"
+}
+
+variable "network_out_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for Network Out Monitor, else use default"
+}
+
 variable "network_out_thresholds" {
   type = "map"
 
@@ -177,6 +231,18 @@ variable "network_out_escalation_message" {
   type        = "string"
   default     = ""
   description = "The escalation message when Network Out Monitor isn't resolved for given time"
+}
+
+variable "network_out_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for Network Out Monitor"
+}
+
+variable "open_file_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for Open File Monitor, else use default"
 }
 
 variable "open_file_thresholds" {
@@ -201,6 +267,18 @@ variable "open_file_escalation_message" {
   description = "The escalation message when Open File Monitor isn't resolved for given time"
 }
 
+variable "open_file_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for Open File Monitor"
+}
+
+variable "system_load_name" {
+  type        = "string"
+  default     = ""
+  description = "The name for System Load Monitor, else use default"
+}
+
 variable "system_load_thresholds" {
   type = "map"
 
@@ -221,4 +299,10 @@ variable "system_load_escalation_message" {
   type        = "string"
   default     = ""
   description = "The escalation message when System Load Monitor isn't resolved for given time"
+}
+
+variable "system_load_include_tags" {
+  type        = "string"
+  default     = true
+  description = "The flag to include tags in name for System Load Monitor"
 }
