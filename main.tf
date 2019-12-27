@@ -355,7 +355,9 @@ module "monitor_cpu_usage" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - CPU Usage is High on IP: {{ host.ip }} Name: {{ host.name }}"
+  name               = "${var.cpu_usage_name != "" ? 
+                        "${var.cpu_usage_name}" : 
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - CPU Usage is High on IP: {{ host.ip }} Name: {{ host.name }}"}"
   query              = "avg(last_5m):100 - avg:system.cpu.idle{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.cpu_usage_thresholds["critical"]}"
   thresholds         = "${var.cpu_usage_thresholds}"
   message            = "${var.cpu_usage_message}"
@@ -367,6 +369,7 @@ module "monitor_cpu_usage" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.cpu_usage_include_tags}"
 }
 
 module "monitor_disk_usage" {
@@ -379,7 +382,9 @@ module "monitor_disk_usage" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Disk Usage is High on IP: {{ host.ip }} Name: {{ host.name }}"
+  name               = "${var.disk_usage_name != "" ? 
+                        "${var.disk_usage_name}" : 
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - Disk Usage is High on IP: {{ host.ip }} Name: {{ host.name }}"}"
   query              = "avg(last_5m):avg:system.disk.in_use{cluster:${var.cluster}, environment:${var.environment}, device:${var.disk_device}} by {host,device} * 100  >= ${var.disk_usage_thresholds["critical"]}"
   thresholds         = "${var.disk_usage_thresholds}"
   message            = "${var.disk_usage_message}"
@@ -391,6 +396,7 @@ module "monitor_disk_usage" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.disk_usage_include_tags}"
 }
 
 module "monitor_memory_free" {
@@ -403,7 +409,9 @@ module "monitor_memory_free" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Free Memory is Low on IP: {{ host.ip }} Name: {{ host.name }}"
+  name               = "${var.memory_free_name != "" ? 
+                        "${var.memory_free_name}" : 
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - Free Memory is Low on IP: {{ host.ip }} Name: {{ host.name }}"}"
   query              = "avg(last_5m):avg:system.mem.usable{cluster:${var.cluster}, environment:${var.environment}} by {host} <= ${var.memory_free_thresholds["critical"]}"
   thresholds         = "${var.memory_free_thresholds}"
   message            = "${var.memory_free_message}"
@@ -415,6 +423,7 @@ module "monitor_memory_free" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.memory_free_include_tags}"
 }
 
 module "monitor_network_in" {
@@ -427,7 +436,9 @@ module "monitor_network_in" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Network In is High on IP: {{ host.ip }} Name: {{ host.name }}"
+  name               = "${var.network_in_name != "" ? 
+                        "${var.network_in_name}" : 
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - Network In is High on IP: {{ host.ip }} Name: {{ host.name }}"}"
   query              = "avg(last_5m):avg:system.net.bytes_rcvd{cluster:${var.cluster}, environment:${var.environment}} by {host,device} >= ${var.network_in_thresholds["critical"]}"
   thresholds         = "${var.network_in_thresholds}"
   message            = "${var.network_in_message}"
@@ -439,6 +450,7 @@ module "monitor_network_in" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.network_in_include_tags}"
 }
 
 module "monitor_network_out" {
@@ -451,7 +463,9 @@ module "monitor_network_out" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Network Out is High on IP: {{ host.ip }} Name: {{ host.name }}"
+  name               = "${var.network_out_name != "" ? 
+                        "${var.network_out_name}" : 
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - Network Out is High on IP: {{ host.ip }} Name: {{ host.name }}"}"
   query              = "avg(last_5m):avg:system.net.bytes_sent{cluster:${var.cluster}, environment:${var.environment}} by {host,device} >= ${var.network_out_thresholds["critical"]}"
   thresholds         = "${var.network_out_thresholds}"
   message            = "${var.network_out_message}"
@@ -463,6 +477,7 @@ module "monitor_network_out" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.network_out_include_tags}"
 }
 
 module "monitor_open_file" {
@@ -475,7 +490,9 @@ module "monitor_open_file" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - Open File is High on IP: {{ host.ip }} Name: {{ host.name }}"
+  name               = "${var.open_file_name != "" ? 
+                        "${var.open_file_name}" : 
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - Open File is High on IP: {{ host.ip }} Name: {{ host.name }}"}"
   query              = "avg(last_5m):system.fs.file_handles.allocated{cluster:${var.cluster}, environment:${var.environment}} by {host} - avg:system.fs.file_handles.allocated_unused{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.open_file_thresholds["critical"]}"
   thresholds         = "${var.open_file_thresholds}"
   message            = "${var.open_file_message}"
@@ -487,6 +504,7 @@ module "monitor_open_file" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.open_file_include_tags}"
 }
 
 module "monitor_system_load" {
@@ -499,7 +517,9 @@ module "monitor_system_load" {
   tags           = "${var.tags}"
   timeboard_id   = "${join(",", datadog_timeboard.system.*.id)}"
 
-  name               = "${var.product_domain} - ${var.cluster} - ${var.environment} - System Load is High on IP: {{ host.ip }} Name: {{ host.name }}"
+  name               = "${var.system_load_name != "" ? 
+                        "${var.system_load_name}" : 
+                        "${var.product_domain} - ${var.cluster} - ${var.environment} - System Load is High on IP: {{ host.ip }} Name: {{ host.name }}"}"
   query              = "avg(last_5m):avg:system.load.1{cluster:${var.cluster}, environment:${var.environment}} by {host} >= ${var.system_load_thresholds["critical"]}"
   thresholds         = "${var.system_load_thresholds}"
   message            = "${var.system_load_message}"
@@ -511,4 +531,5 @@ module "monitor_system_load" {
 
   renotify_interval = "${var.renotify_interval}"
   notify_audit      = "${var.notify_audit}"
+  include_tags      = "${var.system_load_include_tags}"
 }
